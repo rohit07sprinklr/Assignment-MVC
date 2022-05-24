@@ -3,9 +3,9 @@ export function truncateMiddle(word,documentselect) {
     // Width of font according to font size and style
     const fontwidth =getTextWidth(word,getCanvasFontSize(documentselect));
     // Total container width
-    const containerwidth = Number((getComputedStyle(documentselect).width).replace("px",""));  
+    const containerwidth = Number((getComputedStyle(documentselect).width).replace("px",""));
     // Width occupied by logo
-    const logowidth = Number(getComputedStyle(document.getElementsByClassName("imagelogo")[0]).width.replace("px","")); 
+    const logowidth = Number(getComputedStyle(document.getElementsByClassName("image-logo")[0]).width.replace("px","")); 
     // Count of limit of char for truncation according to width of div 
     const tooLongChars=(( word.length/ fontwidth) * (containerwidth-logowidth));
     

@@ -5,54 +5,18 @@ body{
 .container{
     margin-top: 1.5%;
     display: flex;
-    justify-content: center;
-    
+    flex-direction: row;
+    justify-content: center;  
+    flex-wrap: wrap; 
 }
-.sidebar{
+/* Left side */
+.side-bar{
+    display: flex;  
+    align-items: flex-start;
     width: 300px;
     margin: 10px; 
 }
-.image-bar{
-    margin-left: 10px;
-    padding: 10px;
-    flex-shrink: 1;
-}
-.float-child {
-    padding: 10px;
-    width: 40%;
-    float: left;
-}  
-#floattextbox{
-    padding: 10px 0 0 0;
-    width: 100%;
-    text-align: center; 
-    word-wrap: break-word;
-}
-#floatimagelist{
-    width:300px;
-}
-#imagecontent{
-    width: 500px;
-}
-.imagelist{
-    width: 300px;
-    font-size: 17px;
-}
-
-.listitem{
-    padding: 10px;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-}
-.imagedisplay{
-    width:500px;
-    height:700px;
-}
-.imagelogo{
-    width: 50px;
-}
-img.logo{
+.image-logo{
     vertical-align:middle;
     padding:0px;
     border-radius: 22%;
@@ -60,17 +24,44 @@ img.logo{
     height: 45px;
     object-fit:cover;
 }
-.imagedisplay img{
+.image-list{
+    width: 300px;
+    font-size: 17px;
+}
+.listitem{
+    width: 300px;
+    padding: 10px;
+    padding-right: 0px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.active {
+    background-color:#3366ff;
+    border-radius: 4px;
+    color: white;
+}
+
+/* Right Side */
+.image-bar{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin-left: 10px;
+    padding: 10px;
+}
+.image-display img{
     width: 500px;
     height: 700px;
     object-fit:cover;
     border-radius: 1%;
 }
-.active {
-    text-align:justify;
-    width: 300px;
-    height: 45px;  
-    background-color:#3366ff;
-    border-radius: 4px;
-    color: white;
+#textboxid{
+    padding: 10px 0 0 0;
+    width: 100%;
+    text-align: center; 
+    word-wrap: break-word;
 }
+
+
+
