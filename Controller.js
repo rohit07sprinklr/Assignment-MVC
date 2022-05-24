@@ -35,11 +35,6 @@ export class Controller{
     handleinput = (event)=>{
         this.model.updateArray(event.srcElement.innerText);
         this.view.updateListItem(this.model.currentID,event.srcElement.innerText,this.model.dataArray[this.model.currentID].previewImage);
-        // current[0].innerHTML =`
-        // <p class="listitemtext"><img src="${dataArray[currentID].previewImage}" class="logo"></img>
-        // ${truncateMiddle(event.srcElement.innerText,document.getElementsByClassName("imagelist")[0])}</p>
-        // </div>
-        // `;
     }
 
     onStart = (dataArray)=>{
