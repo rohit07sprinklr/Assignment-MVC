@@ -29,7 +29,10 @@ export class View{
         `
     }
     updateListItem =(currentID,currentTitle,currentImage)=> {
-        document.getElementById(currentID).innerHTML = this.markup(currentID,currentTitle,currentImage);
+        document.getElementById(currentID).innerHTML = `
+            <img src="${currentImage}" class="logo"></img>
+            ${truncateMiddle(currentTitle,document.getElementsByClassName("imagelist")[0])}</div>
+        `
     }
     updateList = (currentID,currentTitle,currentImage)=>{
         const imagelist = document.querySelector(".imagelist");
