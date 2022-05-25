@@ -10,36 +10,39 @@ export class View{
         `
     }
 
-    // textboxmarkup() changes the innerHTML of the label box 
-    textBoxMarkup(currentTitle){
-        const textbox = document.querySelector("#textboxid");
+    // imageCaptionUpdate() changes the innerHTML of the label box 
+    imageCaptionUpdate(currentTitle){
+        const textbox = document.querySelector("#image-caption");
         textbox.innerHTML= `
         ${currentTitle}
         `
     }
-    // markup
-    markup = (currentID,currentTitle,currentImage)=>{
+
+    initializeList = (currentID,currentTitle,currentImage)=>{
+        const imagelist = document.querySelector(".image-list");
+        imagelist.innerHTML= imagelist.innerHTML + (this.listMarkup(currentID,currentTitle,currentImage));
+    }
+    listMarkup = (currentID,currentTitle,currentImage)=>{
         return`
         <div class="listitem" id="${currentID}">
         <img src="${currentImage}" class="image-logo"></img>
         ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}</div>
         `
     }
-    updateListItem =(currentID,currentTitle,currentImage)=> {
+
+    updateListItem =(currentID,currentTitle)=> {
+        const currentImage=(document.getElementById(currentID).children[0]).outerHTML;
         document.getElementById(currentID).innerHTML = `
-            <img src="${currentImage}" class="image-logo"></img>
-            ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}</div>
-        `
-    }
-    updateList = (currentID,currentTitle,currentImage)=>{
-        const imagelist = document.querySelector(".image-list");
-        imagelist.innerHTML= imagelist.innerHTML + (this.markup(currentID,currentTitle,currentImage));
+            ${currentImage} ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}`
     }
 
-    displayList = (dataArray)=>{
-        const imagelist = document.querySelector(".image-list");
-        imagelist.innerHTML= imagelist.innerHTML + (this.markup(element,id));
-    }
+    setActiveClass(currentID){
+        const current = document.getElementsByClassName("active");
+        if(current.length>0)
+          current[0].className = current[0].className.replace(" active", "");
+        document.getElementById(currentID).className += " active";
+      } 
+
     bindMouseClick = (handler) => {
         const listitem = document.getElementsByClassName("listitem");
         listitem.map = Array.prototype.map;
@@ -53,7 +56,7 @@ export class View{
         });
     }    
     bindInput =(handler)=>{
-        const textbox = document.getElementById('textboxid');
+        const textbox = document.getElementById('image-caption');
         textbox.addEventListener('input', (event)=>{
             handler(event);
         });
