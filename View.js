@@ -1,5 +1,3 @@
-import {truncateMiddle} from './FontTruncate.js'
-
 export class View{
     constructor(){  
     }
@@ -7,14 +5,12 @@ export class View{
         return (element.scrollWidth > element.clientWidth);
     }
     isvalid(element,orignalText,midIndex){
-        console.log(element);
-        element.innerHTML =`${element.children[0].outerHTML}
-                            ${orignalText.slice(0,midIndex)}...${orignalText.slice(-midIndex)}`;
+        const changedText = (orignalText.slice(0,midIndex) + '...'  +orignalText.slice(-midIndex)).toString();
+        element.innerHTML =`${element.children[0].outerHTML}${changedText}`;
         return this.isOverflown(element);
     }
     truncate(currentID){
         const currentElement = document.getElementById(currentID);
-        console.log(currentElement);
         if(this.isOverflown(currentElement)==false)
             return;
         const orignalText = currentElement.innerText.toString();
@@ -23,18 +19,13 @@ export class View{
         let ans=0;
         while(l<r){
             let mid = Math.ceil((l+r)/2);
-            console.log(mid);
-            let copyNode = currentElement.cloneNode(true)
-            console.log(currentElement.attributes);
-            if(this.isvalid(copyNode,orignalText,mid)==false){
+            if(this.isvalid(currentElement,orignalText,mid)==true){
                 ans=mid;
                 r=mid-1;
             }
             else
                 l = mid+1;
         }
-        console.log('Finished'+ans);
-        this.isvalid(currentElement,orignalText,ans);
     }
     updateImage(currentImage){
         const imageDisplay = document.querySelector(".image-display");
@@ -58,11 +49,6 @@ export class View{
         this.truncate(currentID);
     }
     listMarkup = (currentID,currentTitle,currentImage)=>{
-        // return`
-        // <div class="listitem" id="${currentID}">
-        // <img src="${currentImage}" class="image-logo"></img>
-        // ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}</div>
-        // `
         return`
         <div class="listitem" id="${currentID}">
         <img src="${currentImage}" class="image-logo"></img>
@@ -72,8 +58,8 @@ export class View{
 
     updateListItem =(currentID,currentTitle)=> {
         const currentImage=(document.getElementById(currentID).children[0]).outerHTML;
-        document.getElementById(currentID).innerHTML = `
-            ${currentImage} ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}`
+        document.getElementById(currentID).innerHTML = `${currentImage} ${currentTitle}`
+        this.truncate(currentID);
     }
 
     setActiveClass(currentID){
