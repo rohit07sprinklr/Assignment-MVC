@@ -3,6 +3,39 @@ import {truncateMiddle} from './FontTruncate.js'
 export class View{
     constructor(){  
     }
+    isOverflown(element) {
+        return (element.scrollWidth > element.clientWidth);
+    }
+    isvalid(element,orignalText,midIndex){
+        console.log(element);
+        element.innerHTML =`${element.children[0].outerHTML}
+                            ${orignalText.slice(0,midIndex)}...${orignalText.slice(-midIndex)}`;
+        return this.isOverflown(element);
+    }
+    truncate(currentID){
+        const currentElement = document.getElementById(currentID);
+        console.log(currentElement);
+        if(this.isOverflown(currentElement)==false)
+            return;
+        const orignalText = currentElement.innerText.toString();
+        let l=0;
+        let r=orignalText.length;
+        let ans=0;
+        while(l<r){
+            let mid = Math.ceil((l+r)/2);
+            console.log(mid);
+            let copyNode = currentElement.cloneNode(true)
+            console.log(currentElement.attributes);
+            if(this.isvalid(copyNode,orignalText,mid)==false){
+                ans=mid;
+                r=mid-1;
+            }
+            else
+                l = mid+1;
+        }
+        console.log('Finished'+ans);
+        this.isvalid(currentElement,orignalText,ans);
+    }
     updateImage(currentImage){
         const imageDisplay = document.querySelector(".image-display");
         imageDisplay.innerHTML = `
@@ -20,13 +53,20 @@ export class View{
 
     initializeList = (currentID,currentTitle,currentImage)=>{
         const imagelist = document.querySelector(".image-list");
-        imagelist.innerHTML= imagelist.innerHTML + (this.listMarkup(currentID,currentTitle,currentImage));
+        const newImage = this.listMarkup(currentID,currentTitle,currentImage);
+        imagelist.innerHTML= imagelist.innerHTML + newImage;
+        this.truncate(currentID);
     }
     listMarkup = (currentID,currentTitle,currentImage)=>{
+        // return`
+        // <div class="listitem" id="${currentID}">
+        // <img src="${currentImage}" class="image-logo"></img>
+        // ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}</div>
+        // `
         return`
         <div class="listitem" id="${currentID}">
         <img src="${currentImage}" class="image-logo"></img>
-        ${truncateMiddle(currentTitle,document.getElementsByClassName("image-list")[0])}</div>
+        ${currentTitle}</div>
         `
     }
 
